@@ -2,6 +2,7 @@ type IButtonProps = {
   color: string;
   text: string;
   size?: number;
+  event?: any;
 };
 
 export function Button({ color, text, size }: IButtonProps) {

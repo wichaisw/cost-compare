@@ -1,11 +1,16 @@
+import { useStore } from "@nanostores/react";
+import { isModalOpen } from "../states/modal";
+
 export function AddItemModal() {
+  const $isModalOpen = useStore(isModalOpen);
+
   return (
-    <div id="container">
-      <main>
-        <section className="">
-          <AddItemModal />
-        </section>
-      </main>
-    </div>
+    <section>
+      {$isModalOpen ? (
+        <main>
+          <section className="text-lg text-black">AddItemModal</section>
+        </main>
+      ) : null}
+    </section>
   );
 }
