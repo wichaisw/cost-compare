@@ -4,7 +4,7 @@ type IButtonProps = {
   size?: number;
 };
 
-export default function Button({ color, text, size }: IButtonProps) {
+export function Button({ color, text, size }: IButtonProps) {
   const colorVariants: Record<string, string> = {
     blue: "bg-blue-500 hover:bg-blue-700",
     red: "bg-red-500 hover:bg-red-700",

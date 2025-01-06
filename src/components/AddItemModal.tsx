@@ -1,4 +1,4 @@
-export default function AddItemModal() {
+export function AddItemModal() {
   return (
     <div id="container">
       <main>
