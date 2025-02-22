@@ -2,9 +2,11 @@ import { useStore } from "@nanostores/react";
 import { isModalOpen } from "../states/modal";
 import { Button } from "./Button";
 import { useState } from "react";
+import { itemList, sortedItemList } from "../states/items";
 
 export function AddItemModal() {
   const $isModalOpen = useStore(isModalOpen);
+  useStore(itemList);
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -19,6 +21,7 @@ export function AddItemModal() {
       amount,
     };
     const stringifiedItem = JSON.stringify([...existingItems, newItem]);
+    itemList.set([...existingItems, newItem]);
 
     // TODO need to setState, this won't update the for item loop
     localStorage.setItem("costCompareItem", stringifiedItem);

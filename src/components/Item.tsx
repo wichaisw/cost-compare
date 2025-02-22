@@ -1,3 +1,4 @@
+import { getPricePerUnit } from "../utils/priceCalculations";
 import type { ItemType } from "./ItemForm";
 
 type ItemProps = ItemType;
@@ -19,7 +20,7 @@ export function Item({ itemName, price = 0, amount = 0 }: ItemProps) {
         defaultValue={amount}
         onChange={(event) => event.target.value}
       />
-      <span>{price / amount}</span>
+      <span>{getPricePerUnit(price, amount)}</span>
     </div>
   );
 }
