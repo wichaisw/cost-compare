@@ -95,6 +95,7 @@ export function ItemListForm() {
                       amount={itemField.amount}
                       key={itemField.id}
                       index={index}
+                      removeFormItem={remove}
                     />
                   );
                 })
