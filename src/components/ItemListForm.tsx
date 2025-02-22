@@ -17,8 +17,10 @@ export type ItemType = {
 
 export function ItemListForm() {
   // const $itemList = useStore(itemList);
+  const [isInit, setIsInit] = useState(false);
+
   const $currency: string = useStore(currency);
-  const methods = useForm({
+  const formMethods = useForm({
     defaultValues: {
       itemList: [
         {
@@ -29,10 +31,10 @@ export function ItemListForm() {
       ],
     },
   });
-  const { register, reset, control } = methods;
+
   const { fields, append, prepend, remove, swap, move, insert, replace } =
     useFieldArray({
-      control: methods.control, // control props comes from useForm (optional: if you are using FormProvider)
+      control: formMethods.control, // control props comes from useForm (optional: if you are using FormProvider)
       name: "itemList", // unique name for your Field Array
     });
 
@@ -48,6 +50,7 @@ export function ItemListForm() {
     console.log(storageItem);
     // itemList.set([...storageItem]);
     replace([...storageItem]);
+    setIsInit(true);
   }
 
   function compareItems(currentItemList: ItemType[]) {
@@ -67,30 +70,38 @@ export function ItemListForm() {
   }
 
   return (
-    <FormProvider {...methods}>
-      {JSON.stringify(fields)}
-      <form onSubmit={methods.handleSubmit(() => compareItems(fields))}>
-        <div className="flex flex-col gap-3 rounded bg-slate-800 p-4 text-white">
-          <header className="grid grid-cols-4 gap-4">
-            <span className="col-start-2">Total Price</span>
-            <span>Amount</span>
-            <span>{$currency}/Unit</span>
-          </header>
-
-          {fields.length > 0 ? (
-            fields.map((itemField, index: number) => {
-              return (
-                <Item
-                  itemName={itemField.itemName}
-                  price={itemField.price}
-                  amount={itemField.amount}
-                  key={itemField.id}
-                  index={index}
-                />
-              );
-            })
+    <FormProvider {...formMethods}>
+      <form
+        className="w-full"
+        onSubmit={formMethods.handleSubmit(() => compareItems(fields))}
+      >
+        <div className="flex min-h-72 w-full flex-col gap-3 rounded bg-slate-800 p-4 text-white">
+          {!isInit ? (
+            <span>"Loading..."</span>
           ) : (
-            <div>NO Data</div>
+            <>
+              <header className="grid grid-cols-4 gap-4">
+                <span className="col-start-2">Total Price</span>
+                <span>Amount</span>
+                <span>{$currency}/Unit</span>
+              </header>
+
+              {fields.length > 0 ? (
+                fields.map((itemField, index: number) => {
+                  return (
+                    <Item
+                      itemName={itemField.itemName}
+                      price={itemField.price}
+                      amount={itemField.amount}
+                      key={itemField.id}
+                      index={index}
+                    />
+                  );
+                })
+              ) : (
+                <div>NO Data</div>
+              )}
+            </>
           )}
         </div>
 
