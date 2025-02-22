@@ -2,11 +2,18 @@ import { useStore } from "@nanostores/react";
 import { isModalOpen } from "../states/modals";
 import { Button } from "./Button";
 import { useState } from "react";
-import { itemList, sortedItemList } from "../states/items";
+// import { itemList, sortedItemList } from "../states/items";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 export function AddItemModal() {
   const $isModalOpen = useStore(isModalOpen);
-  useStore(itemList);
+  const { control } = useFormContext();
+  const { replace, append } = useFieldArray({
+    control, // control props comes from useForm (optional: if you are using FormProvider)
+    name: "itemList", // unique name for your Field Array
+  });
+
+  // useStore(itemList);
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -20,10 +27,11 @@ export function AddItemModal() {
       price,
       amount,
     };
-    const stringifiedItem = JSON.stringify([...existingItems, newItem]);
-    itemList.set([...existingItems, newItem]);
+    // itemList.set([...existingItems, newItem]);
+    append(newItem);
 
     // TODO need to setState, this won't update the for item loop
+    const stringifiedItem = JSON.stringify([...existingItems, newItem]);
     localStorage.setItem("costCompareItem", stringifiedItem);
 
     setItemName("");
@@ -33,7 +41,7 @@ export function AddItemModal() {
   }
 
   return (
-    <div className="absolute flex h-3/4 items-center lg:min-w-32">
+    <div className="absolute flex h-3/4 grow items-center lg:min-w-32">
       {$isModalOpen ? (
         <section className="grid grid-cols-3 gap-4 self-center rounded bg-slate-800 p-4 text-white">
           <div

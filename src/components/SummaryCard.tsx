@@ -1,12 +1,13 @@
 import { useStore } from "@nanostores/react";
 import { sortedItemList } from "../states/items";
-import type { ItemType } from "./ItemForm";
+
 import {
   getPriceDifference,
   getPriceDifferencePercent,
   getSavedCost,
 } from "../utils/priceCalculations";
 import { currency } from "../states/configs";
+import type { ItemType } from "./Item";
 
 export function SummaryCard() {
   const $sortedItemList: ItemType[] = useStore(sortedItemList);
