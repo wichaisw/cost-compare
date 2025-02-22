@@ -1,4 +1,4 @@
-import type { ItemType } from "../components/ItemForm";
+import type { ItemType } from "../components/Item";
 
 export function getPricePerUnit(price: number, amount: number) {
   if (amount === 0) {

@@ -1,6 +1,6 @@
 ---
 import { ModalButton } from "../components/ModalButton";
-import { ItemForm } from "../components/ItemForm";
+import { ItemListForm } from "../components/ItemListForm";
 import { SummaryCard } from "../components/SummaryCard";
 import { AddItemModal } from "../components/AddItemModal";
 import { Backdrop } from "../components/Backdrop";
@@ -8,18 +8,12 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <main class="m-2 flex max-w-screen-md flex-col items-center">
+  <main class="m-2 flex grow flex-col items-center lg:max-w-screen-md">
     <div class="flex w-full flex-row justify-end py-4">
       <ModalButton text="Add" color="orange" client:load />
     </div>
-    <ItemForm client:load />
+    <ItemListForm client:load />
 
-    <article class="mt-6 w-full">
-      <SummaryCard client:load />
-    </article>
+    <SummaryCard client:load />
   </main>
-
-  <!-- modal -->
-  <Backdrop client:load />
-  <AddItemModal client:load />
 </Layout>
