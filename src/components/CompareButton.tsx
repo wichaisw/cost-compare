@@ -17,8 +17,13 @@ export function CompareButton() {
   }
 
   function compareItems(currentItemList: ItemType[]) {
+    if (currentItemList.length < 2) {
+      alert("need at least than 2 items to compare");
+      return;
+    }
+
     const result: ItemType[] = currentItemList.toSorted(
-      (a: ItemType, b: ItemType) => {
+      (a: ItemType, b: ItemType): number => {
         return (
           getPricePerUnit(a.price, a.amount) -
           getPricePerUnit(b.price, b.amount)

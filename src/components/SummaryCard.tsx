@@ -13,7 +13,7 @@ export function SummaryCard() {
   const $currency: string = useStore(currency);
   const [firstItem, secondItem] = $sortedItemList;
 
-  if ($sortedItemList.length === 0) {
+  if ($sortedItemList.length < 2) {
     return null;
   }
 
