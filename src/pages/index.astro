@@ -1,25 +1,18 @@
 ---
-import { Button } from "../components/Button";
 import { ModalButton } from "../components/ModalButton";
 import { ItemForm } from "../components/ItemForm";
 import { SummaryCard } from "../components/SummaryCard";
 import { AddItemModal } from "../components/AddItemModal";
 import { Backdrop } from "../components/Backdrop";
 import Layout from "../layouts/Layout.astro";
-import { CompareButton } from "../components/CompareButton";
-import { ClearButton } from "../components/ClearButton";
 ---
 
 <Layout>
-  <main class="flex max-w-screen-md flex-col items-center">
+  <main class="m-2 flex max-w-screen-md flex-col items-center">
     <div class="flex w-full flex-row justify-end py-4">
       <ModalButton text="Add" color="orange" client:load />
     </div>
     <ItemForm client:load />
-    <section class="my-2 flex w-full flex-row justify-between">
-      <ClearButton client:load />
-      <CompareButton client:load />
-    </section>
 
     <article class="mt-6 w-full">
       <SummaryCard client:load />
