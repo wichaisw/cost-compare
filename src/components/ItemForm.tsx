@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Item } from "./Item";
+import { itemList } from "../states/items";
+import { useStore } from "@nanostores/react";
 
 export type ItemType = {
   itemName: string;
@@ -8,7 +10,7 @@ export type ItemType = {
 };
 
 export function ItemForm() {
-  const [items, setItems] = useState<ItemType[]>([]);
+  const $itemList = useStore(itemList);
 
   useEffect(() => {
     const storageItem: ItemType[] = JSON.parse(
@@ -16,7 +18,7 @@ export function ItemForm() {
     );
 
     console.log(storageItem);
-    setItems([...storageItem]);
+    itemList.set([...storageItem]);
   }, []);
 
   return (
@@ -27,14 +29,13 @@ export function ItemForm() {
         <span>Price/Unit</span>
       </header>
 
-      {items.map((item: ItemType) => {
-        // TODO  itemName should be unique
+      {$itemList.map((item: ItemType, index: number) => {
         return (
           <Item
             itemName={item.itemName}
             price={item.price}
             amount={item.amount}
-            key={item.itemName}
+            key={`${item.itemName}-${index}}`}
           />
         );
       })}
