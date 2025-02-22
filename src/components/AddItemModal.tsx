@@ -2,18 +2,24 @@ import { useStore } from "@nanostores/react";
 import { isModalOpen } from "../states/modals";
 import { Button } from "./Button";
 import { useState } from "react";
-// import { itemList, sortedItemList } from "../states/items";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { type UseFieldArrayAppend } from "react-hook-form";
 
-export function AddItemModal() {
+type AddItemModalProps = {
+  addToForm: UseFieldArrayAppend<
+    { itemList: { itemName: string; price: number; amount: number }[] },
+    "itemList"
+  >;
+};
+
+export function AddItemModal({ addToForm }: AddItemModalProps) {
   const $isModalOpen = useStore(isModalOpen);
-  const { control } = useFormContext();
-  const { replace, append } = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormProvider)
-    name: "itemList", // unique name for your Field Array
-  });
+  // const { control } = useFormContext();
+  // const { append } = useFieldArray({
+  //   control,
+  //   name: "itemList",
+  // });
 
-  // useStore(itemList);
+  // // useStore(itemList);
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -27,10 +33,8 @@ export function AddItemModal() {
       price,
       amount,
     };
-    // itemList.set([...existingItems, newItem]);
-    append(newItem);
+    addToForm(newItem);
 
-    // TODO need to setState, this won't update the for item loop
     const stringifiedItem = JSON.stringify([...existingItems, newItem]);
     localStorage.setItem("costCompareItem", stringifiedItem);
 

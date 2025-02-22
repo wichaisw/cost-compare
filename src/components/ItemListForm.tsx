@@ -107,7 +107,7 @@ export function ItemListForm() {
 
       {/* <!-- modal --> */}
       <Backdrop />
-      <AddItemModal />
+      <AddItemModal addToForm={append} />
     </FormProvider>
   );
 }

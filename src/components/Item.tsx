@@ -10,7 +10,7 @@ export type ItemType = {
 export type ItemProp = ItemType & { index: number };
 
 export function Item({ itemName, price = 0, amount = 0, index }: ItemProp) {
-  const { register, control } = useFormContext();
+  const { register } = useFormContext();
   return (
     <div className="grid grid-cols-4 gap-4">
       <label htmlFor="item-price">{itemName}</label>
