@@ -6,7 +6,8 @@ import { SummaryCard } from "../components/SummaryCard";
 import { AddItemModal } from "../components/AddItemModal";
 import { Backdrop } from "../components/Backdrop";
 import Layout from "../layouts/Layout.astro";
-import { CompareButton } from "../components/Compare";
+import { CompareButton } from "../components/CompareButton";
+import { ClearButton } from "../components/ClearButton";
 ---
 
 <Layout>
@@ -16,7 +17,7 @@ import { CompareButton } from "../components/Compare";
     </div>
     <ItemForm client:load />
     <section class="my-2 flex w-full flex-row justify-between">
-      <Button text="Clear" color="gray" client:load />
+      <ClearButton client:load />
       <CompareButton client:load />
     </section>
 
