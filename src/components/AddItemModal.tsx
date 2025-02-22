@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { isModalOpen } from "../states/modal";
+import { isModalOpen } from "../states/modals";
 import { Button } from "./Button";
 import { useState } from "react";
 import { itemList, sortedItemList } from "../states/items";

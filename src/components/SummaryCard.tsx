@@ -6,9 +6,11 @@ import {
   getPriceDifferencePercent,
   getSavedCost,
 } from "../utils/priceCalculations";
+import { currency } from "../states/configs";
 
 export function SummaryCard() {
   const $sortedItemList: ItemType[] = useStore(sortedItemList);
+  const $currency: string = useStore(currency);
   const [firstItem, secondItem] = $sortedItemList;
 
   if ($sortedItemList.length === 0) {
@@ -29,7 +31,7 @@ export function SummaryCard() {
               {firstItem.itemName} is cheaper than {secondItem.itemName} by
             </span>
             <span>
-              {getPriceDifference(firstItem, secondItem)} Currency/Unit
+              {getPriceDifference(firstItem, secondItem)} {$currency}/Unit
             </span>
           </div>
           <div className="flew-row flex justify-between">
@@ -39,7 +41,9 @@ export function SummaryCard() {
           <br />
           <div className="flew-row mt-2 flex justify-between">
             <span>Buying {firstItem.amount} units will save you</span>
-            <span>{getSavedCost(firstItem, secondItem)} Currency</span>
+            <span>
+              {getSavedCost(firstItem, secondItem)} {$currency}
+            </span>
           </div>
         </div>
       </div>

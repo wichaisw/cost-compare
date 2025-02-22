@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { isModalOpen } from "../states/modal";
+import { isModalOpen } from "../states/modals";
 import { Button, type IButtonProps } from "./Button";
 
 export function ModalButton({ color, text }: IButtonProps) {

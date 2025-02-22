@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Item } from "./Item";
 import { itemList } from "../states/items";
 import { useStore } from "@nanostores/react";
+import { currency } from "../states/configs";
 
 export type ItemType = {
   itemName: string;
@@ -11,6 +12,7 @@ export type ItemType = {
 
 export function ItemForm() {
   const $itemList = useStore(itemList);
+  const $currency: string = useStore(currency);
 
   useEffect(() => {
     const storageItem: ItemType[] = JSON.parse(
@@ -28,7 +30,7 @@ export function ItemForm() {
       <header className="grid grid-cols-4 gap-4">
         <span className="col-start-2">Total Price</span>
         <span>Amount</span>
-        <span>Price/Unit</span>
+        <span>{$currency}/Unit</span>
       </header>
 
       {$itemList.map((item: ItemType, index: number) => {
