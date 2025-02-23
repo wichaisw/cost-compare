@@ -2,7 +2,8 @@ import type { ItemType } from "../components/Item";
 
 export function getPricePerUnit(price: number, amount: number) {
   if (amount === 0) {
-    throw new Error("Amount cannot be zero");
+    // TODO properly handle error message
+    alert("Amount cannot be zero");
   }
   const roundedPrice =
     Math.round((price / amount) * 100000000000) / 100000000000;
