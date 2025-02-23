@@ -6,7 +6,7 @@ export function getPricePerUnit(price: number, amount: number) {
   }
   const roundedPrice =
     Math.round((price / amount) * 100000000000) / 100000000000;
-  return Number(roundedPrice.toFixed(4));
+  return parseFloat(roundedPrice.toFixed(4));
 }
 
 export function getPriceDifference(firstItem: ItemType, secondItem: ItemType) {
@@ -14,7 +14,7 @@ export function getPriceDifference(firstItem: ItemType, secondItem: ItemType) {
     (getPricePerUnit(secondItem.price, secondItem.amount) * 10000 -
       getPricePerUnit(firstItem.price, firstItem.amount) * 10000) /
     10000;
-  return Number(difference.toFixed(4));
+  return parseFloat(difference.toFixed(4));
 }
 
 export function getPriceDifferencePercent(
@@ -27,7 +27,7 @@ export function getPriceDifferencePercent(
       (difference / getPricePerUnit(secondItem.price, secondItem.amount)) *
         10000,
     ) / 100;
-  return Number(roundedPrice.toFixed(4));
+  return parseFloat(roundedPrice.toFixed(4));
 }
 
 export function getSavedCost(firstItem: ItemType, secondItem: ItemType) {
