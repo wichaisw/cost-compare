@@ -40,6 +40,7 @@ export function Item({
         type="text"
         id="item-price"
         className="rounded-sm px-1 text-black"
+        defaultValue={0}
         {...register(`itemList.${index}.price`, {
           required: true,
           valueAsNumber: true,
@@ -49,6 +50,7 @@ export function Item({
         type="text"
         id="item-amount"
         className="rounded-sm px-1 text-black"
+        defaultValue={0}
         {...register(`itemList.${index}.amount`, {
           required: true,
           valueAsNumber: true,

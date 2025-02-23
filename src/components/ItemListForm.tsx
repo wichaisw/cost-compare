@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Item } from "./Item";
-import { itemList, sortedItemList } from "../states/items";
+import { sortedItemList } from "../states/items";
 import { useStore } from "@nanostores/react";
 import { currency } from "../states/configs";
 import { Button } from "./Button";
@@ -53,8 +53,16 @@ export function ItemListForm() {
     setIsInit(true);
   }
 
+  function updateItemList(itemList: ItemType[]) {
+    const stringifiedItem = JSON.stringify(itemList);
+    localStorage.setItem("costCompareItem", stringifiedItem);
+    replace(itemList);
+  }
+
   function compareItems(currentItemList: ItemType[]) {
+    console.log("data: ", currentItemList);
     if (currentItemList.length < 2) {
+      // TODO properly handle error
       alert("need at least than 2 items to compare");
       return;
     }
@@ -67,13 +75,29 @@ export function ItemListForm() {
         );
       },
     );
+    sortedItemList.set(result);
+
+    updateItemList(currentItemList);
+  }
+
+  function clearLocalState(event: any) {
+    fields.forEach((itemField, index) => {
+      formMethods.setValue(`itemList.${index}.amount`, 0);
+      formMethods.setValue(`itemList.${index}.price`, 0);
+    });
+
+    const updatedItemList = formMethods.getValues().itemList;
+    console.log(updatedItemList);
+    localStorage.setItem("costCompareItem", JSON.stringify(updatedItemList));
   }
 
   return (
     <FormProvider {...formMethods}>
       <form
         className="w-full"
-        onSubmit={formMethods.handleSubmit(() => compareItems(fields))}
+        onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
+          compareItems(data.itemList),
+        )}
       >
         <div className="flex min-h-72 w-full flex-col gap-3 rounded bg-slate-800 p-4 text-white">
           {!isInit ? (
@@ -107,7 +131,12 @@ export function ItemListForm() {
         </div>
 
         <section className="my-2 flex w-full flex-row justify-between">
-          <Button text="Clear" color="gray" type="reset" />
+          <Button
+            text="Clear"
+            color="gray"
+            type="reset"
+            callback={clearLocalState}
+          />
           <Button
             text="Compare"
             color="blue"
