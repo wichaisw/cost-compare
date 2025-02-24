@@ -164,7 +164,7 @@ export function ItemListForm() {
               style="w-1/2"
               callback={clearLocalState}
             />
-            <Button text="Compare" color="amber" type="submit" style="w-1/2" />
+            <Button text="Compare" color="blue" type="submit" style="w-1/2" />
           </div>
         </section>
       </form>
