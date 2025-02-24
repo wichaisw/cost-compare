@@ -7,7 +7,7 @@ export function Backdrop() {
   return (
     <>
       {$isModalOpen ? (
-        <div className="absolute h-full w-full bg-slate-800"></div>
+        <div className="size-dvw absolute inset-0 m-0 h-full w-full bg-slate-800"></div>
       ) : null}
     </>
   );
