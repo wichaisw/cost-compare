@@ -35,8 +35,12 @@ export function SummaryCard() {
         <br />
 
         <div>
-          Buying {cheapestItem.amount} units will save you{" "}
-          {getSavedCost(cheapestItem, compareTarget || secondCheapestItem)}{" "}
+          <span>
+            Buying {cheapestItem.amount} units will save you{" "}
+            {getSavedCost(cheapestItem, compareTarget || secondCheapestItem)}
+            {` ${$currency} `}
+            compared to
+          </span>
           <p className="mx-1 inline">
             <select
               id="compare-target"
@@ -78,7 +82,10 @@ export function SummaryCard() {
           <tbody>
             {$sortedItemList.map((item, index) => {
               return (
-                <tr key={`${item.itemName}-${index}`}>
+                <tr
+                  key={`${item.itemName}-${index}`}
+                  className={index === 0 ? "bg-green-300" : ""}
+                >
                   <td className="border-blue-gray-50 border-b p-4">
                     {item.itemName}
                   </td>
