@@ -1,7 +1,6 @@
 ---
 import { ModalButton } from "../components/ModalButton";
 import { ItemListForm } from "../components/ItemListForm";
-import { SummaryCard } from "../components/SummaryCard";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -11,7 +10,5 @@ import Layout from "../layouts/Layout.astro";
       <ModalButton text="Add" color="orange" client:load />
     </div>
     <ItemListForm client:load />
-
-    <SummaryCard client:load />
   </main>
 </Layout>

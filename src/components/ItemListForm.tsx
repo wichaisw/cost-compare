@@ -8,6 +8,7 @@ import { getPricePerUnit } from "../utils/priceCalculations";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Backdrop } from "./Backdrop";
 import { AddItemModal } from "./AddItemModal";
+import { SummaryCard } from "./SummaryCard";
 
 export type ItemType = {
   itemName: string;
@@ -52,8 +53,6 @@ export function ItemListForm() {
       localStorage.getItem("costCompareItem") ?? "[]",
     );
 
-    console.log(storageItem);
-    // itemList.set([...storageItem]);
     replace([...storageItem]);
     setIsInit(true);
   }
@@ -80,8 +79,8 @@ export function ItemListForm() {
         );
       },
     );
-    sortedItemList.set(result);
 
+    sortedItemList.set(result);
     updateItemList(currentItemList);
   }
 
@@ -92,19 +91,18 @@ export function ItemListForm() {
     });
 
     const updatedItemList = formMethods.getValues().itemList;
-    console.log(updatedItemList);
     localStorage.setItem("costCompareItem", JSON.stringify(updatedItemList));
   }
 
   return (
     <FormProvider {...formMethods}>
       <form
-        className="w-full"
+        className="w-full lg:w-3/4"
         onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
           compareItems(data.itemList),
         )}
       >
-        <div className="flex min-h-72 w-full flex-col gap-3 rounded bg-slate-800 p-4 text-white">
+        <div className="mb-6 flex min-h-72 w-full flex-col gap-3 rounded bg-slate-800 p-4 text-white">
           {!isInit ? (
             <span>"Loading..."</span>
           ) : (
@@ -135,19 +133,19 @@ export function ItemListForm() {
           )}
         </div>
 
-        <section className="my-2 flex w-full flex-row justify-between">
-          <Button
-            text="Clear"
-            color="gray"
-            type="reset"
-            callback={clearLocalState}
-          />
-          <Button
-            text="Compare"
-            color="blue"
-            type="submit"
-            // callback={() => updateFormAndCompare($itemList)}
-          />
+        <SummaryCard />
+
+        <section className="fixed bottom-px left-px right-px mx-2 my-2 justify-items-center">
+          <div className="flex w-full flex-row justify-between gap-2 lg:w-3/4">
+            <Button
+              text="Clear"
+              color="gray"
+              type="reset"
+              style="w-1/2"
+              callback={clearLocalState}
+            />
+            <Button text="Compare" color="blue" type="submit" style="w-1/2" />
+          </div>
         </section>
       </form>
 
