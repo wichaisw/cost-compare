@@ -50,10 +50,11 @@ export function Item({
         type="text"
         id="item-amount"
         className="rounded-sm px-1 text-black"
-        defaultValue={0}
+        defaultValue={1}
         {...register(`itemList.${index}.amount`, {
           required: true,
           valueAsNumber: true,
+          min: 1,
         })}
       />
       <div className="flex justify-between">

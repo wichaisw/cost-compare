@@ -3,7 +3,7 @@ import type { ItemType } from "../components/Item";
 export function getPricePerUnit(price: number, amount: number) {
   if (amount === 0) {
     // TODO properly handle error message
-    alert("Amount cannot be zero");
+    console.log("Amount cannot be zero");
   }
   const roundedPrice =
     Math.round((price / amount) * 100000000000) / 100000000000;

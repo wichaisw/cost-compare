@@ -9,6 +9,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Backdrop } from "./Backdrop";
 import { AddItemModal } from "./AddItemModal";
 import { SummaryCard } from "./SummaryCard";
+import { ErrorMessage } from "@hookform/error-message";
 
 export type ItemType = {
   itemName: string;
@@ -27,20 +28,22 @@ export function ItemListForm() {
         {
           itemName: "item 1",
           price: 0,
-          amount: 0,
+          amount: 1,
         },
         {
           itemName: "item 2",
           price: 0,
-          amount: 0,
+          amount: 1,
         },
       ],
     },
   });
 
+  const { formState, control } = formMethods;
+
   const { fields, append, prepend, remove, swap, move, insert, replace } =
     useFieldArray({
-      control: formMethods.control, // control props comes from useForm (optional: if you are using FormProvider)
+      control, // control props comes from useForm (optional: if you are using FormProvider)
       name: "itemList", // unique name for your Field Array
     });
 
@@ -64,10 +67,9 @@ export function ItemListForm() {
   }
 
   function compareItems(currentItemList: ItemType[]) {
-    console.log("data: ", currentItemList);
     if (currentItemList.length < 2) {
       // TODO properly handle error
-      alert("need at least than 2 items to compare");
+      console.log("need at least than 2 items to compare");
       return;
     }
 
@@ -86,8 +88,8 @@ export function ItemListForm() {
 
   function clearLocalState(event: any) {
     fields.forEach((itemField, index) => {
-      formMethods.setValue(`itemList.${index}.amount`, 0);
-      formMethods.setValue(`itemList.${index}.price`, 0);
+      formMethods.setValue(`itemList.${index}.amount`, 1);
+      formMethods.setValue(`itemList.${index}.price`, 1);
     });
 
     const updatedItemList = formMethods.getValues().itemList;
@@ -112,7 +114,6 @@ export function ItemListForm() {
                 <span>Amount</span>
                 <span>{$currency}/Unit</span>
               </header>
-
               {fields.length > 0 ? (
                 fields.map((itemField, index: number) => {
                   return (
@@ -132,6 +133,16 @@ export function ItemListForm() {
             </>
           )}
         </div>
+        <ErrorMessage
+          errors={formState.errors}
+          name="multipleErrorInput"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <p key={type}>{message}</p>
+            ))
+          }
+        />
 
         <SummaryCard />
 

@@ -56,6 +56,8 @@ export function SummaryCard() {
                   <td className="border-blue-gray-50 border-b p-4">
                     {index === 0 ? (
                       <p>Cheapest Choice!</p>
+                    ) : item.price === 0 ? (
+                      <p>It's Free!</p>
                     ) : (
                       <p>
                         {getPriceDifference(firstItem, item)} {$currency}/Unit (
