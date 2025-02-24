@@ -20,8 +20,8 @@ export function SummaryCard() {
   }
 
   return (
-    <div className="w-full">
-      <div className="mb-2 text-xl font-bold">
+    <div className="mb-32 w-full">
+      <div className="mb-2 text-xl font-bold text-white">
         <span>{firstItem.itemName} is the cheapest choice!</span>
         {/* <span>
           Buying {firstItem.amount} units will save you{" "}
@@ -39,7 +39,9 @@ export function SummaryCard() {
                 {$currency}/Unit
               </th>
               <th className="border-blue-gray-100 bg-blue-gray-50 border-b p-4">
-                The Cheapest Saved You by ...
+                <span className="whitespace-normal text-wrap break-all">
+                  The Cheapest Saved You by ...
+                </span>
               </th>
             </tr>
           </thead>
@@ -53,7 +55,7 @@ export function SummaryCard() {
                   <td className="border-blue-gray-50 border-b p-4">
                     {getPricePerUnit(item.price, item.amount)}
                   </td>
-                  <td className="border-blue-gray-50 border-b p-4">
+                  <td className="border-blue-gray-50 whitespace-normal text-wrap break-all border-b p-4">
                     {index === 0 ? (
                       <p>Cheapest Choice!</p>
                     ) : item.price === 0 ? (

@@ -74,7 +74,7 @@ export function AddItemModal({ addToForm }: AddItemModalProps) {
               onChange={(e) => setAmount(parseFloat(e.target.value))}
             />
             <Button
-              color="blue"
+              color="amber"
               text="Add Item"
               style="col-span-3"
               callback={() => addItem(itemName, price, amount)}

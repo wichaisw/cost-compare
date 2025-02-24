@@ -19,6 +19,7 @@ export function Button({
     blue: "bg-blue-500 hover:bg-blue-700",
     red: "bg-red-500 hover:bg-red-700",
     orange: "bg-orange-500 hover:bg-orange-700",
+    amber: "bg-amber-500 hover:bg-orange-700",
     gray: "bg-slate-500 hover:bg-slate-700",
   };
 

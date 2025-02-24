@@ -37,6 +37,7 @@ export function ItemListForm() {
         },
       ],
     },
+    criteriaMode: "all",
   });
 
   const { formState, control } = formMethods;
@@ -104,7 +105,7 @@ export function ItemListForm() {
           compareItems(data.itemList),
         )}
       >
-        <div className="mb-6 flex min-h-72 w-full flex-col gap-3 rounded bg-slate-800 p-4 text-white">
+        <div className="mb-6 flex w-full flex-col gap-3 rounded p-4 text-white lg:min-h-72">
           {!isInit ? (
             <span>"Loading..."</span>
           ) : (
@@ -117,14 +118,32 @@ export function ItemListForm() {
               {fields.length > 0 ? (
                 fields.map((itemField, index: number) => {
                   return (
-                    <Item
-                      itemName={itemField.itemName}
-                      price={itemField.price}
-                      amount={itemField.amount}
-                      key={itemField.id}
-                      index={index}
-                      removeFormItem={remove}
-                    />
+                    <div key={itemField.id + 1324}>
+                      <Item
+                        itemName={itemField.itemName}
+                        price={itemField.price}
+                        amount={itemField.amount}
+                        key={itemField.id}
+                        index={index}
+                        removeFormItem={remove}
+                      />
+                      {/* <ErrorMessage
+                        errors={
+                          formState.errors.itemList
+                            ? formState.errors.itemList[index]?.amount
+                                ?.message || { amount: "" }
+                            : { amount: "" }
+                        }
+                        key={`${itemField.id}-error`}
+                        name={`itemList.${index}.amount`}
+                        render={({ messages }) =>
+                          messages &&
+                          Object.entries(messages).map(([type, message]) => (
+                            <p key={`${itemField.id}-${type}`}>{message}</p>
+                          ))
+                        }
+                      /> */}
+                    </div>
                   );
                 })
               ) : (
@@ -133,16 +152,6 @@ export function ItemListForm() {
             </>
           )}
         </div>
-        <ErrorMessage
-          errors={formState.errors}
-          name="multipleErrorInput"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <p key={type}>{message}</p>
-            ))
-          }
-        />
 
         <SummaryCard />
 
@@ -155,7 +164,7 @@ export function ItemListForm() {
               style="w-1/2"
               callback={clearLocalState}
             />
-            <Button text="Compare" color="blue" type="submit" style="w-1/2" />
+            <Button text="Compare" color="amber" type="submit" style="w-1/2" />
           </div>
         </section>
       </form>
