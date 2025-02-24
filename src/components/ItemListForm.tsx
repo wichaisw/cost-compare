@@ -100,7 +100,7 @@ export function ItemListForm() {
   return (
     <FormProvider {...formMethods}>
       <form
-        className="w-full lg:w-3/4"
+        className="w-full lg:w-1/2"
         onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
           compareItems(data.itemList),
         )}
@@ -156,7 +156,7 @@ export function ItemListForm() {
         <SummaryCard />
 
         <section className="fixed bottom-px left-px right-px mx-2 my-2 justify-items-center">
-          <div className="flex w-full flex-row justify-between gap-2 lg:w-3/4">
+          <div className="flex w-full flex-row justify-between gap-2 lg:mb-2 lg:w-1/2">
             <Button
               text="Clear"
               color="gray"
