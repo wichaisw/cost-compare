@@ -28,6 +28,11 @@ export function ItemListForm() {
           price: 0,
           amount: 0,
         },
+        {
+          itemName: "item 2",
+          price: 0,
+          amount: 0,
+        },
       ],
     },
   });
