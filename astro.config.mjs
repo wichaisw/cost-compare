@@ -9,5 +9,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [react(), tailwind()],
   site: "https://wichaisw.github.io/",
-  base: "cost-compare",
+  base: "/cost-compare",
 });
