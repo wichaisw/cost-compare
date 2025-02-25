@@ -79,6 +79,21 @@ export function ItemListForm() {
     setIsInit(true);
   }
 
+  function addItem(index: number) {
+    const newItem = {
+      itemName: `item ${index}`,
+      price: 0,
+      amount: 1,
+    };
+    append(newItem);
+
+    const existingItems = JSON.parse(
+      localStorage.getItem("costCompareItem") ?? "[]",
+    );
+    const stringifiedItem = JSON.stringify([...existingItems, newItem]);
+    localStorage.setItem("costCompareItem", stringifiedItem);
+  }
+
   function updateItemList(itemList: ItemType[]) {
     const stringifiedItem = JSON.stringify(itemList);
     localStorage.setItem("costCompareItem", stringifiedItem);
@@ -172,7 +187,13 @@ export function ItemListForm() {
 
           <section className="mx-4 my-2 lg:mx-0">
             <div className="mb-4 lg:mb-6">
-              <ModalButton text="Add Item" color="green" />
+              <Button
+                text="Add Item"
+                color="green"
+                callback={() =>
+                  addItem(formMethods.getValues().itemList.length + 1)
+                }
+              />
             </div>
 
             {isInit && formMethods.getValues().itemList.length >= 2 ? (
