@@ -1,8 +1,7 @@
 import type { ItemType } from "../components/Item";
 
 export function getPricePerUnit(price: number, amount: number) {
-  if (amount === 0) {
-    // TODO properly handle error message
+  if (amount <= 0) {
     console.log("Amount cannot be zero");
   }
   const roundedPrice =

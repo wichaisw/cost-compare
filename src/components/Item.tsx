@@ -35,15 +35,15 @@ export function Item({
   return (
     <div className="grid grid-cols-4 gap-4">
       <label htmlFor="item-price">{itemName}</label>
-      {/* TODO add error for type NaN */}
       <input
         type="text"
         id="item-price"
         className="rounded-sm px-1 text-black"
         defaultValue={0}
         {...register(`itemList.${index}.price`, {
-          required: true,
+          required: "Price is required",
           valueAsNumber: true,
+          validate: (value) => value >= 0 || "Price cannot be negative",
         })}
       />
       <input
@@ -52,9 +52,12 @@ export function Item({
         className="rounded-sm px-1 text-black"
         defaultValue={1}
         {...register(`itemList.${index}.amount`, {
-          required: true,
+          required: "Amount is required",
           valueAsNumber: true,
-          min: 1,
+          validate: {
+            positive: (value) => value > 0 || "Amount must be greater than 0",
+            number: (value) => !isNaN(value) || "Amount must be a number",
+          },
         })}
       />
       <div className="flex justify-between">

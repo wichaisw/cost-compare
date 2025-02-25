@@ -9,7 +9,6 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Backdrop } from "./Backdrop";
 import { AddItemModal } from "./AddItemModal";
 import { SummaryCard } from "./SummaryCard";
-import { ErrorMessage } from "@hookform/error-message";
 
 export type ItemType = {
   itemName: string;
@@ -36,6 +35,7 @@ export function ItemListForm() {
         },
       ],
     },
+    mode: "onChange",
     criteriaMode: "all",
   });
 
@@ -68,8 +68,11 @@ export function ItemListForm() {
 
   function compareItems(currentItemList: ItemType[]) {
     if (currentItemList.length < 2) {
-      // TODO properly handle error
       console.log("need at least than 2 items to compare");
+      return;
+    }
+
+    if (formState.errors.itemList) {
       return;
     }
 
@@ -118,7 +121,6 @@ export function ItemListForm() {
                 fields.map((itemField, index: number) => {
                   return (
                     <div key={itemField.id + 1324}>
-                      {/* // todo fix this */}
                       <Item
                         itemName={itemField.itemName}
                         price={itemField.price}
@@ -127,22 +129,13 @@ export function ItemListForm() {
                         index={index}
                         removeFormItem={remove}
                       />
-                      <ErrorMessage
-                        errors={
-                          formState.errors.itemList
-                            ? formState.errors.itemList[index]?.amount
-                                ?.message || { amount: "" }
-                            : { amount: "" }
-                        }
-                        key={`${itemField.id}-error`}
-                        name={`itemList.${index}.amount`}
-                        render={({ messages }) =>
-                          messages &&
-                          Object.entries(messages).map(([type, message]) => (
-                            <p key={`${itemField.id}-${type}`}>{message}</p>
-                          ))
-                        }
-                      />
+                      <div className="text-start text-sm text-red-500">
+                        {formState.errors.itemList?.[index]?.amount && (
+                          <span>
+                            {formState.errors.itemList[index]?.amount?.message}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   );
                 })
