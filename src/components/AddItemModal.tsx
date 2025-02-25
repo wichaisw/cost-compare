@@ -43,12 +43,13 @@ export function AddItemModal({ addToForm }: AddItemModalProps) {
       {$isModalOpen ? (
         <div className="absolute flex h-3/4 grow items-center lg:min-w-32">
           <section className="grid grid-cols-3 gap-4 self-center rounded bg-slate-800 p-4 text-white">
-            <div
-              className="col-start-3 rounded bg-slate-400 text-center"
-              onClick={() => isModalOpen.set(false)}
-            >
-              X
-            </div>
+            <Button
+              style="col-span-1 col-start-3 w-8 rounded bg-slate-400 text-center  justify-self-end  "
+              color="gray"
+              callback={() => isModalOpen.set(false)}
+              text="X"
+            />
+
             <label htmlFor="added-item-name">Item</label>
             <input
               id="added-item-name"
