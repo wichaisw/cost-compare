@@ -104,7 +104,7 @@ export function ItemListForm() {
           compareItems(data.itemList),
         )}
       >
-        <div className="mb-6 flex w-full flex-col gap-3 rounded p-4 text-white lg:min-h-72">
+        <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-4">
           {!isInit ? (
             <span>"Loading..."</span>
           ) : (
@@ -146,26 +146,31 @@ export function ItemListForm() {
                   );
                 })
               ) : (
-                <div>NO Data</div>
+                <div>No Data</div>
               )}
             </>
           )}
         </div>
 
-        <SummaryCard />
-
-        <section className="fixed bottom-px left-px right-px mx-2 my-2 justify-items-center">
-          <div className="flex w-full flex-row justify-between gap-2 lg:mb-2 lg:w-1/2">
+        <section className="my-2 w-full justify-items-center">
+          <div className="flex w-full flex-row justify-end gap-2 lg:mb-2 lg:mr-8">
             <Button
               text="Clear"
               color="gray"
               type="reset"
-              style="w-1/2"
+              style="w-1/2 lg:w-1/4"
               callback={clearLocalState}
             />
-            <Button text="Compare" color="blue" type="submit" style="w-1/2" />
+            <Button
+              text="Compare"
+              color="blue"
+              type="submit"
+              style="w-1/2 lg:w-1/4"
+            />
           </div>
         </section>
+
+        <SummaryCard />
       </form>
 
       {/* <!-- modal --> */}

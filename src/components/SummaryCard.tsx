@@ -27,7 +27,7 @@ export function SummaryCard() {
   }
 
   return (
-    <div className="mb-32 w-full">
+    <div className="mt-8 w-full lg:mt-14">
       <div className="mb-2 text-white">
         <span className="text-lg font-bold lg:text-xl">
           {cheapestItem.itemName} is the Cheapest Choice!
