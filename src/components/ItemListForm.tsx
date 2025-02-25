@@ -89,7 +89,7 @@ export function ItemListForm() {
   function clearLocalState(event: any) {
     fields.forEach((itemField, index) => {
       formMethods.setValue(`itemList.${index}.amount`, 1);
-      formMethods.setValue(`itemList.${index}.price`, 1);
+      formMethods.setValue(`itemList.${index}.price`, 0);
     });
 
     const updatedItemList = formMethods.getValues().itemList;
@@ -127,7 +127,7 @@ export function ItemListForm() {
                         index={index}
                         removeFormItem={remove}
                       />
-                      {/* <ErrorMessage
+                      <ErrorMessage
                         errors={
                           formState.errors.itemList
                             ? formState.errors.itemList[index]?.amount
@@ -142,7 +142,7 @@ export function ItemListForm() {
                             <p key={`${itemField.id}-${type}`}>{message}</p>
                           ))
                         }
-                      /> */}
+                      />
                     </div>
                   );
                 })
