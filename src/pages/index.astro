@@ -2,13 +2,16 @@
 import { ModalButton } from "../components/ModalButton";
 import { ItemListForm } from "../components/ItemListForm";
 import Layout from "../layouts/Layout.astro";
+
+import { Dropdown } from "../components/Dropdown";
 ---
 
 <Layout>
   <main
     class="lg:max-w-screen mx-2 flex flex-col items-center text-sm lg:min-w-[54rem] lg:text-base"
   >
-    <div class="mb-2 mr-6 mt-4 flex w-full flex-row justify-end">
+    <div class="mb-2 mr-6 mt-4 flex w-full flex-row justify-end gap-2">
+      <Dropdown client:load />
       <ModalButton text="Add" color="blue" client:load />
     </div>
     <ItemListForm client:load />
