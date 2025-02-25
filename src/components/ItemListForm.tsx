@@ -104,7 +104,7 @@ export function ItemListForm() {
           compareItems(data.itemList),
         )}
       >
-        <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-4">
+        <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-6 lg:p-0">
           {!isInit ? (
             <span>"Loading..."</span>
           ) : (
@@ -118,6 +118,7 @@ export function ItemListForm() {
                 fields.map((itemField, index: number) => {
                   return (
                     <div key={itemField.id + 1324}>
+                      {/* // todo fix this */}
                       <Item
                         itemName={itemField.itemName}
                         price={itemField.price}
@@ -152,8 +153,8 @@ export function ItemListForm() {
           )}
         </div>
 
-        <section className="my-2 w-full justify-items-center">
-          <div className="flex w-full flex-row justify-end gap-2 lg:mb-2 lg:mr-8">
+        <section className="my-2 w-full justify-items-center px-4 lg:px-0">
+          <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
             <Button
               text="Clear"
               color="gray"
