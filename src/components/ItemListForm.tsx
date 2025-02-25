@@ -99,7 +99,7 @@ export function ItemListForm() {
   return (
     <FormProvider {...formMethods}>
       <form
-        className="w-full lg:w-1/2"
+        className="flex h-full w-full flex-col lg:w-1/2"
         onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
           compareItems(data.itemList),
         )}
