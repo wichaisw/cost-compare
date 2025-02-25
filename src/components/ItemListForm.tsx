@@ -135,13 +135,14 @@ export function ItemListForm() {
           ) : (
             <>
               <header className="grid grid-cols-4 gap-4">
-                <span className="col-start-2">Total Price</span>
+                <span>Item Name</span>
+                <span>Total Price</span>
                 <span>Amount</span>
                 <span>{$currency}/Unit</span>
               </header>
               {fields.map((itemField, index: number) => {
                 return (
-                  <div key={itemField.id + 1324}>
+                  <div key={itemField.id + "wrapper"}>
                     <Item
                       itemName={itemField.itemName}
                       price={itemField.price}
@@ -151,10 +152,15 @@ export function ItemListForm() {
                       removeFormItem={remove}
                     />
                     <div className="text-start text-sm text-red-500">
+                      {formState.errors.itemList?.[index]?.price && (
+                        <p>
+                          {formState.errors.itemList[index]?.price?.message}
+                        </p>
+                      )}
                       {formState.errors.itemList?.[index]?.amount && (
-                        <span>
+                        <p>
                           {formState.errors.itemList[index]?.amount?.message}
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>

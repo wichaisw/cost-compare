@@ -34,7 +34,13 @@ export function Item({
 
   return (
     <div className="grid grid-cols-4 gap-4">
-      <label htmlFor="item-price">{itemName}</label>
+      {/* <label htmlFor="item-price">{itemName}</label> */}
+      <input
+        type="text"
+        id="item-name"
+        className="rounded-sm px-1 text-black"
+        defaultValue={itemName || ""}
+      />
       <input
         type="text"
         id="item-price"
@@ -43,7 +49,10 @@ export function Item({
         {...register(`itemList.${index}.price`, {
           required: "Price is required",
           valueAsNumber: true,
-          validate: (value) => value >= 0 || "Price cannot be negative",
+          validate: {
+            positive: (value) => value >= 0 || "Price cannot be negative",
+            number: (value) => !isNaN(value) || "Price must be a number",
+          },
         })}
       />
       <input
