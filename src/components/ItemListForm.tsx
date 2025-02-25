@@ -9,6 +9,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Backdrop } from "./Backdrop";
 import { AddItemModal } from "./AddItemModal";
 import { SummaryCard } from "./SummaryCard";
+import { ModalButton } from "./ModalButton";
 
 export type ItemType = {
   itemName: string;
@@ -128,7 +129,7 @@ export function ItemListForm() {
             compareItems(data.itemList),
           )}
         >
-          <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-6 lg:p-0">
+          <div className="flex w-full flex-col gap-3 rounded px-4 text-white lg:p-0">
             {fields.length <= 0 || !isInit ? (
               <div>No Data</div>
             ) : (
@@ -169,28 +170,34 @@ export function ItemListForm() {
             )}
           </div>
 
-          {isInit && formMethods.getValues().itemList.length >= 2 ? (
-            <>
-              <section className="my-2 w-full justify-items-center px-4 lg:px-0">
-                <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
-                  <Button
-                    text="Clear"
-                    color="gray"
-                    type="reset"
-                    style="w-1/2 lg:w-1/4"
-                    callback={clearLocalState}
-                  />
-                  <Button
-                    text="Compare"
-                    color="blue"
-                    type="submit"
-                    style="w-1/2 lg:w-1/4"
-                  />
-                </div>
-              </section>
-              <SummaryCard />
-            </>
-          ) : null}
+          <section className="mx-4 my-2 lg:mx-0">
+            <div className="mb-4 lg:mb-6">
+              <ModalButton text="Add Item" color="green" />
+            </div>
+
+            {isInit && formMethods.getValues().itemList.length >= 2 ? (
+              <>
+                <section className="my-2 w-full justify-items-center lg:px-0">
+                  <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
+                    <Button
+                      text="Clear"
+                      color="gray"
+                      type="reset"
+                      style="w-1/2 lg:w-1/4"
+                      callback={clearLocalState}
+                    />
+                    <Button
+                      text="Compare"
+                      color="blue"
+                      type="submit"
+                      style="w-1/2 lg:w-1/4"
+                    />
+                  </div>
+                </section>
+                <SummaryCard />
+              </>
+            ) : null}
+          </section>
         </form>
       )}
       {/* <!-- modal --> */}

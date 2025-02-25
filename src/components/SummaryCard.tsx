@@ -101,7 +101,7 @@ export function SummaryCard() {
                   <td className="border-blue-gray-50 border-b p-3">
                     {pricePerUnit}
                   </td>
-                  <td className="border-blue-gray-50 over overflow-wrap text-wrap border-b p-3">
+                  <td className="border-blue-gray-50 overflow-wrap text-wrap border-b p-3">
                     {index === 0 ? (
                       <p>The Cheapest Choice!</p>
                     ) : item.price === 0 ? (
