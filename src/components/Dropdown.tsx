@@ -21,7 +21,7 @@ export function Dropdown() {
   return (
     <div className="mb-1 flex flex-col items-end">
       <div onClick={toggleDropdown}>
-        <Button color="amber" text="Currency" style="mb-1 cursor-pointer" />
+        <Button color="green" text="Currency" style="mb-1 cursor-pointer" />
       </div>
 
       {isDropdownOpen && (
