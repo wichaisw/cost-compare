@@ -62,7 +62,7 @@ export function Item({
         <Button
           text="X"
           color="red"
-          style={"w-fit rounded-xl"}
+          style={"text-xs   rounded-full "}
           callback={() => removeItem(index)}
         />
       </div>

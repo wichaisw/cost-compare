@@ -6,9 +6,9 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout>
   <main
-    class="lg:max-w-screen mx-2 flex flex-col items-center lg:min-w-[54rem]"
+    class="lg:max-w-screen mx-2 flex flex-col items-center text-sm lg:min-w-[54rem] lg:text-base"
   >
-    <div class="flex w-full flex-row justify-end py-4">
+    <div class="mb-2 mr-6 mt-4 flex w-full flex-row justify-end">
       <ModalButton text="Add" color="blue" client:load />
     </div>
     <ItemListForm client:load />

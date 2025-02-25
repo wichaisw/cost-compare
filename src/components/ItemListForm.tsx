@@ -18,7 +18,6 @@ export type ItemType = {
 };
 
 export function ItemListForm() {
-  // const $itemList = useStore(itemList);
   const [isInit, setIsInit] = useState(false);
 
   const $currency: string = useStore(currency);
@@ -44,8 +43,8 @@ export function ItemListForm() {
 
   const { fields, append, prepend, remove, swap, move, insert, replace } =
     useFieldArray({
-      control, // control props comes from useForm (optional: if you are using FormProvider)
-      name: "itemList", // unique name for your Field Array
+      control,
+      name: "itemList",
     });
 
   useEffect(() => {

@@ -25,7 +25,7 @@ export function Button({
 
   return (
     <button
-      className={`rounded px-4 py-2 font-bold text-white ${colorVariants[color]} ${style}`}
+      className={`rounded px-2 py-1 font-bold text-white md:px-3 md:py-2 ${colorVariants[color]} ${style}`}
       onClick={callback}
       type={type}
     >
