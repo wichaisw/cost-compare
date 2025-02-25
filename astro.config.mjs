@@ -10,4 +10,5 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   site: "https://wichaisw.github.io",
   base: "/cost-compare",
+  output: "static",
 });
