@@ -65,6 +65,7 @@ export function SummaryCard() {
           </p>
         </div>
       </div>
+
       <div className="my-4 flex w-full flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
         <table className="w-full table-auto text-left">
           <thead>

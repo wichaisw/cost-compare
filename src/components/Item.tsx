@@ -76,7 +76,7 @@ export function Item({
         <span> {amount > 0 ? getPricePerUnit(price, amount) : 0}</span>
         <Button
           text="X"
-          color="red"
+          color="gray"
           style={"text-xs   rounded-full "}
           callback={() => removeItem(index)}
         />
