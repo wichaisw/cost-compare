@@ -52,12 +52,26 @@ export function ItemListForm() {
   }, []);
 
   useEffect(() => {
+    console.log(formMethods.getValues().itemList);
     compareItems(formMethods.getValues().itemList);
   }, [formMethods.getValues().itemList.length]);
 
   function initFormFromStorage() {
+    const defaultItemList: ItemType[] = [
+      {
+        itemName: "item 1",
+        price: 0,
+        amount: 1,
+      },
+      {
+        itemName: "item 2",
+        price: 0,
+        amount: 1,
+      },
+    ];
     const storageItem: ItemType[] = JSON.parse(
-      localStorage.getItem("costCompareItem") ?? "[]",
+      localStorage.getItem("costCompareItem") ??
+        JSON.stringify(defaultItemList),
     );
 
     replace([...storageItem]);
@@ -103,6 +117,10 @@ export function ItemListForm() {
     localStorage.setItem("costCompareItem", JSON.stringify(updatedItemList));
   }
 
+  if (!isInit) {
+    <span>"Loading..."</span>;
+  }
+
   return (
     <FormProvider {...formMethods}>
       <form
@@ -112,8 +130,8 @@ export function ItemListForm() {
         )}
       >
         <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-6 lg:p-0">
-          {!isInit ? (
-            <span>"Loading..."</span>
+          {fields.length <= 0 || !isInit ? (
+            <div>No Data</div>
           ) : (
             <>
               <header className="grid grid-cols-4 gap-4">
@@ -121,54 +139,53 @@ export function ItemListForm() {
                 <span>Amount</span>
                 <span>{$currency}/Unit</span>
               </header>
-              {fields.length > 0 ? (
-                fields.map((itemField, index: number) => {
-                  return (
-                    <div key={itemField.id + 1324}>
-                      <Item
-                        itemName={itemField.itemName}
-                        price={itemField.price}
-                        amount={itemField.amount}
-                        key={itemField.id}
-                        index={index}
-                        removeFormItem={remove}
-                      />
-                      <div className="text-start text-sm text-red-500">
-                        {formState.errors.itemList?.[index]?.amount && (
-                          <span>
-                            {formState.errors.itemList[index]?.amount?.message}
-                          </span>
-                        )}
-                      </div>
+              {fields.map((itemField, index: number) => {
+                return (
+                  <div key={itemField.id + 1324}>
+                    <Item
+                      itemName={itemField.itemName}
+                      price={itemField.price}
+                      amount={itemField.amount}
+                      key={itemField.id}
+                      index={index}
+                      removeFormItem={remove}
+                    />
+                    <div className="text-start text-sm text-red-500">
+                      {formState.errors.itemList?.[index]?.amount && (
+                        <span>
+                          {formState.errors.itemList[index]?.amount?.message}
+                        </span>
+                      )}
                     </div>
-                  );
-                })
-              ) : (
-                <div>No Data</div>
-              )}
+                  </div>
+                );
+              })}
             </>
           )}
         </div>
 
-        <section className="my-2 w-full justify-items-center px-4 lg:px-0">
-          <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
-            <Button
-              text="Clear"
-              color="gray"
-              type="reset"
-              style="w-1/2 lg:w-1/4"
-              callback={clearLocalState}
-            />
-            <Button
-              text="Compare"
-              color="blue"
-              type="submit"
-              style="w-1/2 lg:w-1/4"
-            />
-          </div>
-        </section>
-
-        <SummaryCard />
+        {isInit && formMethods.getValues().itemList.length >= 2 ? (
+          <>
+            <section className="my-2 w-full justify-items-center px-4 lg:px-0">
+              <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
+                <Button
+                  text="Clear"
+                  color="gray"
+                  type="reset"
+                  style="w-1/2 lg:w-1/4"
+                  callback={clearLocalState}
+                />
+                <Button
+                  text="Compare"
+                  color="blue"
+                  type="submit"
+                  style="w-1/2 lg:w-1/4"
+                />
+              </div>
+            </section>
+            <SummaryCard />
+          </>
+        ) : null}
       </form>
 
       {/* <!-- modal --> */}
