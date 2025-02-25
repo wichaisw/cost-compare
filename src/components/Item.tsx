@@ -40,6 +40,9 @@ export function Item({
         id="item-name"
         className="rounded-sm px-1 text-black"
         defaultValue={itemName || ""}
+        {...register(`itemList.${index}.itemName`, {
+          required: "Name is required",
+        })}
       />
       <input
         type="text"
