@@ -117,83 +117,82 @@ export function ItemListForm() {
     localStorage.setItem("costCompareItem", JSON.stringify(updatedItemList));
   }
 
-  if (!isInit) {
-    <span>"Loading..."</span>;
-  }
-
   return (
     <FormProvider {...formMethods}>
-      <form
-        className="flex h-full w-full flex-col lg:w-1/2"
-        onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
-          compareItems(data.itemList),
-        )}
-      >
-        <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-6 lg:p-0">
-          {fields.length <= 0 || !isInit ? (
-            <div>No Data</div>
-          ) : (
-            <>
-              <header className="grid grid-cols-4 gap-4">
-                <span>Item Name</span>
-                <span>Total Price</span>
-                <span>Amount</span>
-                <span>{$currency}/Unit</span>
-              </header>
-              {fields.map((itemField, index: number) => {
-                return (
-                  <div key={itemField.id + "wrapper"}>
-                    <Item
-                      itemName={itemField.itemName}
-                      price={itemField.price}
-                      amount={itemField.amount}
-                      key={itemField.id}
-                      index={index}
-                      removeFormItem={remove}
-                    />
-                    <div className="text-start text-sm text-red-500">
-                      {formState.errors.itemList?.[index]?.price && (
-                        <p>
-                          {formState.errors.itemList[index]?.price?.message}
-                        </p>
-                      )}
-                      {formState.errors.itemList?.[index]?.amount && (
-                        <p>
-                          {formState.errors.itemList[index]?.amount?.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </>
+      {!isInit ? (
+        <span className="text-left text-white">Loading...</span>
+      ) : (
+        <form
+          className="flex h-full w-full flex-col lg:w-1/2"
+          onSubmit={formMethods.handleSubmit((data: { itemList: ItemType[] }) =>
+            compareItems(data.itemList),
           )}
-        </div>
+        >
+          <div className="mb-2 flex w-full flex-col gap-3 rounded p-4 text-white lg:mb-6 lg:p-0">
+            {fields.length <= 0 || !isInit ? (
+              <div>No Data</div>
+            ) : (
+              <>
+                <header className="grid grid-cols-4 gap-4">
+                  <span>Item Name</span>
+                  <span>Total Price</span>
+                  <span>Amount</span>
+                  <span>{$currency}/Unit</span>
+                </header>
+                {fields.map((itemField, index: number) => {
+                  return (
+                    <div key={itemField.id + "wrapper"}>
+                      <Item
+                        itemName={itemField.itemName}
+                        price={itemField.price}
+                        amount={itemField.amount}
+                        key={itemField.id}
+                        index={index}
+                        removeFormItem={remove}
+                      />
+                      <div className="text-start text-sm text-red-500">
+                        {formState.errors.itemList?.[index]?.price && (
+                          <p>
+                            {formState.errors.itemList[index]?.price?.message}
+                          </p>
+                        )}
+                        {formState.errors.itemList?.[index]?.amount && (
+                          <p>
+                            {formState.errors.itemList[index]?.amount?.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </div>
 
-        {isInit && formMethods.getValues().itemList.length >= 2 ? (
-          <>
-            <section className="my-2 w-full justify-items-center px-4 lg:px-0">
-              <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
-                <Button
-                  text="Clear"
-                  color="gray"
-                  type="reset"
-                  style="w-1/2 lg:w-1/4"
-                  callback={clearLocalState}
-                />
-                <Button
-                  text="Compare"
-                  color="blue"
-                  type="submit"
-                  style="w-1/2 lg:w-1/4"
-                />
-              </div>
-            </section>
-            <SummaryCard />
-          </>
-        ) : null}
-      </form>
-
+          {isInit && formMethods.getValues().itemList.length >= 2 ? (
+            <>
+              <section className="my-2 w-full justify-items-center px-4 lg:px-0">
+                <div className="flex w-full flex-row justify-end gap-2 lg:mb-2">
+                  <Button
+                    text="Clear"
+                    color="gray"
+                    type="reset"
+                    style="w-1/2 lg:w-1/4"
+                    callback={clearLocalState}
+                  />
+                  <Button
+                    text="Compare"
+                    color="blue"
+                    type="submit"
+                    style="w-1/2 lg:w-1/4"
+                  />
+                </div>
+              </section>
+              <SummaryCard />
+            </>
+          ) : null}
+        </form>
+      )}
       {/* <!-- modal --> */}
       <Backdrop />
       <AddItemModal addToForm={append} />
