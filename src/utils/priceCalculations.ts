@@ -1,36 +1,95 @@
 import type { ItemType } from "../components/Item";
 
-export function getPricePerUnit(price: number, amount: number) {
-  if (amount <= 0) {
-    console.log("Amount cannot be zero");
-  }
-  const roundedPrice =
-    Math.round((price / amount) * 100000000000) / 100000000000;
-  return parseFloat(roundedPrice.toFixed(4));
+const PRECISION = 4;
+const MULTIPLIER = Math.pow(10, PRECISION);
+
+function safeParseFloat(value: string | number): number {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  return isNaN(num) ? 0 : num;
 }
 
-export function getPriceDifference(firstItem: ItemType, secondItem: ItemType) {
-  const difference =
-    (getPricePerUnit(secondItem.price, secondItem.amount) * 10000 -
-      getPricePerUnit(firstItem.price, firstItem.amount) * 10000) /
-    10000;
-  return parseFloat(difference.toFixed(4));
+function roundToFixed(num: number): number {
+  return Math.round(num * MULTIPLIER) / MULTIPLIER;
+}
+
+export function getPricePerUnit(price: number, amount: number): number {
+  // Handle invalid inputs
+  price = safeParseFloat(price);
+  amount = safeParseFloat(amount);
+
+  if (amount <= 0 || price < 0) {
+    return 0;
+  }
+
+  return roundToFixed(price / amount);
+}
+
+export function getPriceDifference(
+  firstItem: ItemType,
+  secondItem: ItemType,
+): number {
+  const firstPrice = getPricePerUnit(firstItem.price, firstItem.amount);
+  const secondPrice = getPricePerUnit(secondItem.price, secondItem.amount);
+
+  if (firstPrice === 0 && secondPrice === 0) {
+    return 0;
+  }
+
+  return roundToFixed(secondPrice - firstPrice);
 }
 
 export function getPriceDifferencePercent(
   firstItem: ItemType,
   secondItem: ItemType,
-) {
+): number {
+  const firstPrice = getPricePerUnit(firstItem.price, firstItem.amount);
+  const secondPrice = getPricePerUnit(secondItem.price, secondItem.amount);
+
+  if (firstPrice === 0 && secondPrice === 0) {
+    return 0;
+  }
+  if (secondPrice === 0) {
+    return 0; // Avoid division by zero
+  }
+
   const difference = getPriceDifference(firstItem, secondItem);
-  const roundedPrice =
-    Math.round(
-      (difference / getPricePerUnit(secondItem.price, secondItem.amount)) *
-        10000,
-    ) / 100;
-  return parseFloat(roundedPrice.toFixed(4));
+  return roundToFixed((difference / secondPrice) * 100);
 }
 
-export function getSavedCost(firstItem: ItemType, secondItem: ItemType) {
+export function getSavedCostPerUnit(
+  firstItem: ItemType,
+  secondItem: ItemType,
+): number {
   const difference = getPriceDifference(firstItem, secondItem);
-  return Math.round(difference * firstItem.amount * 10000) / 10000;
+
+  if (difference <= 0 || firstItem.amount <= 0) {
+    return 0;
+  }
+
+  return roundToFixed(difference);
+}
+export function getTotalSavedCost(
+  firstItem: ItemType,
+  secondItem: ItemType,
+): number {
+  const difference = getPriceDifference(firstItem, secondItem);
+
+  if (difference <= 0 || firstItem.amount <= 0) {
+    return 0;
+  }
+
+  return roundToFixed(difference * firstItem.amount);
+}
+export function validateItemData(item: ItemType): boolean {
+  return (
+    item &&
+    typeof item.price === "number" &&
+    !isNaN(item.price) &&
+    item.price >= 0 &&
+    typeof item.amount === "number" &&
+    !isNaN(item.amount) &&
+    item.amount > 0 &&
+    typeof item.itemName === "string" &&
+    item.itemName.trim().length > 0
+  );
 }

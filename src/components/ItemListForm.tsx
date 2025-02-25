@@ -52,7 +52,6 @@ export function ItemListForm() {
   }, []);
 
   useEffect(() => {
-    console.log(formMethods.getValues().itemList);
     compareItems(formMethods.getValues().itemList);
   }, [formMethods.getValues().itemList.length]);
 
@@ -73,7 +72,7 @@ export function ItemListForm() {
 
   function compareItems(currentItemList: ItemType[]) {
     if (currentItemList.length < 2) {
-      console.log("need at least than 2 items to compare");
+      console.error("need at least than 2 items to compare");
       return;
     }
 

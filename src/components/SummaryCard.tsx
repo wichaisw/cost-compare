@@ -2,10 +2,11 @@ import { useStore } from "@nanostores/react";
 import { sortedItemList } from "../states/items";
 
 import {
-  getPriceDifference,
   getPriceDifferencePercent,
   getPricePerUnit,
-  getSavedCost,
+  getTotalSavedCost,
+  getSavedCostPerUnit,
+  validateItemData,
 } from "../utils/priceCalculations";
 import { currency } from "../states/configs";
 import type { ItemType } from "./Item";
@@ -27,7 +28,7 @@ export function SummaryCard() {
   }
 
   return (
-    <div className="x h-full w-full content-center lg:mt-14 lg:h-auto">
+    <div className="mt-8 h-full w-full content-center lg:mt-14 lg:h-auto">
       <div className="mb-2 text-white">
         <span className="text-lg font-bold lg:text-xl">
           {cheapestItem.itemName} is the Cheapest Choice!
@@ -37,7 +38,9 @@ export function SummaryCard() {
         <div>
           <span>
             Buying {cheapestItem.amount} units will save you{" "}
-            {getSavedCost(cheapestItem, compareTarget || secondCheapestItem)}
+            {validateItemData(cheapestItem) && validateItemData(compareTarget)
+              ? getTotalSavedCost(cheapestItem, compareTarget)
+              : 0}
             {` ${$currency} `}
             compared to
           </span>
@@ -79,6 +82,14 @@ export function SummaryCard() {
           </thead>
           <tbody>
             {$sortedItemList.map((item, index) => {
+              const pricePerUnit = validateItemData(item)
+                ? getPricePerUnit(item.price, item.amount)
+                : 0;
+              const savedCostPerUnit =
+                validateItemData(cheapestItem) && validateItemData(item)
+                  ? getSavedCostPerUnit(cheapestItem, item)
+                  : 0;
+
               return (
                 <tr
                   key={`${item.itemName}-${index}`}
@@ -88,7 +99,7 @@ export function SummaryCard() {
                     {item.itemName}
                   </td>
                   <td className="border-blue-gray-50 border-b p-3">
-                    {getPricePerUnit(item.price, item.amount)}
+                    {pricePerUnit}
                   </td>
                   <td className="border-blue-gray-50 over overflow-wrap text-wrap border-b p-3">
                     {index === 0 ? (
@@ -97,7 +108,7 @@ export function SummaryCard() {
                       <p>It's Free!</p>
                     ) : (
                       <p>
-                        {getPriceDifference(cheapestItem, item)} {$currency} (
+                        {savedCostPerUnit} {$currency} (
                         {getPriceDifferencePercent(cheapestItem, item)} %)
                       </p>
                     )}
