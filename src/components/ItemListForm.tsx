@@ -51,6 +51,11 @@ export function ItemListForm() {
     initFormFromStorage();
   }, []);
 
+  useEffect(() => {
+    console.log(formMethods.getValues().itemList);
+    compareItems(formMethods.getValues().itemList);
+  }, [formMethods.getValues().itemList.length]);
+
   function initFormFromStorage() {
     const storageItem: ItemType[] = JSON.parse(
       localStorage.getItem("costCompareItem") ?? "[]",
