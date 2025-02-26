@@ -7,9 +7,7 @@ import { Button } from "./Button";
 import { getPricePerUnit } from "../utils/priceCalculations";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { Backdrop } from "./Backdrop";
-import { AddItemModal } from "./AddItemModal";
 import { SummaryCard } from "./SummaryCard";
-import { ModalButton } from "./ModalButton";
 
 export type ItemType = {
   itemName: string;
@@ -230,7 +228,7 @@ export function ItemListForm() {
                     />
                     <Button
                       text="Compare"
-                      color="blue"
+                      color="green"
                       type="submit"
                       style="w-1/2 lg:w-1/4"
                     />
@@ -244,7 +242,6 @@ export function ItemListForm() {
       )}
       {/* <!-- modal --> */}
       <Backdrop />
-      <AddItemModal addToForm={append} />
     </FormProvider>
   );
 }
