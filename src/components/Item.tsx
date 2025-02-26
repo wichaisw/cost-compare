@@ -47,7 +47,7 @@ export function Item({
       <input
         type="text"
         id="item-price"
-        className="rounded-sm px-1 text-black"
+        className="rounded-sm p-1 text-black"
         defaultValue={0}
         {...register(`itemList.${index}.price`, {
           required: "Price is required",
@@ -61,7 +61,7 @@ export function Item({
       <input
         type="text"
         id="item-amount"
-        className="rounded-sm px-1 text-black"
+        className="rounded-sm p-1 text-black"
         defaultValue={1}
         {...register(`itemList.${index}.amount`, {
           required: "Amount is required",
@@ -77,8 +77,8 @@ export function Item({
         <Button
           text="X"
           color="gray"
-          style={"text-xs   rounded-full "}
           callback={() => removeItem(index)}
+          variant="circle"
         />
       </div>
     </div>

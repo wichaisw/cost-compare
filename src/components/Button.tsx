@@ -4,6 +4,7 @@ export type IButtonProps = {
   style?: string;
   callback?: any;
   type?: "button" | "submit" | "reset";
+  variant?: "circle" | "default";
 };
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   style,
   callback,
   type = "button",
+  variant = "default",
 }: IButtonProps) {
   const colorVariants: Record<string, string> = {
     blue: "bg-blue-400 hover:bg-blue-500",
@@ -22,9 +24,15 @@ export function Button({
     green: "bg-green-400 hover:bg-green-600",
   };
 
+  const variantClasses = {
+    default: "rounded px-2 py-1 md:px-3 md:py-2",
+    circle:
+      "rounded-full w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center self-center",
+  };
+
   return (
     <button
-      className={`cursor-pointer rounded px-2 py-1 font-bold text-white md:px-3 md:py-2 ${colorVariants[color]} ${style}`}
+      className={`cursor-pointer font-bold text-white ${colorVariants[color]} ${variantClasses[variant]} ${style}`}
       onClick={callback}
       type={type}
     >
