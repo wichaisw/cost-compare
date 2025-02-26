@@ -149,34 +149,54 @@ export function ItemListForm() {
               <div>No Data</div>
             ) : (
               <>
-                <header className="grid grid-cols-4 gap-4">
-                  <span>Item Name</span>
-                  <span>Total Price</span>
-                  <span>Amount</span>
-                  <span>{$currency}/Unit</span>
-                </header>
+                <div className="flex w-full flex-row justify-between">
+                  <header className="grid w-full grid-cols-7 gap-2">
+                    <span className="col-span-3 w-full">Item Name</span>
+                    <span className="col-span-2 w-full">Total Price</span>
+                    <span className="col-span-2 w-full">Amount</span>
+                  </header>
+
+                  <span className="ml-2 w-6 lg:w-8" id="buffer"></span>
+                </div>
                 {fields.map((itemField, index: number) => {
                   return (
-                    <div key={itemField.id + "wrapper"}>
-                      <Item
-                        itemName={itemField.itemName}
-                        price={itemField.price}
-                        amount={itemField.amount}
-                        key={itemField.id}
-                        index={index}
-                        removeFormItem={remove}
-                      />
-                      <div className="text-start text-sm text-red-500">
-                        {formState.errors.itemList?.[index]?.price && (
-                          <p>
-                            {formState.errors.itemList[index]?.price?.message}
-                          </p>
-                        )}
-                        {formState.errors.itemList?.[index]?.amount && (
-                          <p>
-                            {formState.errors.itemList[index]?.amount?.message}
-                          </p>
-                        )}
+                    <div
+                      key={itemField.id + "wrapper"}
+                      className="flex w-full flex-row justify-between"
+                    >
+                      <div className="w-full">
+                        <Item
+                          itemName={itemField.itemName}
+                          price={itemField.price}
+                          amount={itemField.amount}
+                          key={itemField.id}
+                          index={index}
+                          removeFormItem={remove}
+                        />
+                        <div className="text-start text-sm text-red-500">
+                          {formState.errors.itemList?.[index]?.price && (
+                            <p>
+                              {formState.errors.itemList[index]?.price?.message}
+                            </p>
+                          )}
+                          {formState.errors.itemList?.[index]?.amount && (
+                            <p>
+                              {
+                                formState.errors.itemList[index]?.amount
+                                  ?.message
+                              }
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <Button
+                          text="X"
+                          color="gray"
+                          callback={() => remove(index)}
+                          variant="circle"
+                          style="ml-2"
+                        />
                       </div>
                     </div>
                   );

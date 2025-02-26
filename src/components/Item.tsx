@@ -33,12 +33,12 @@ export function Item({
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-7 gap-2">
       {/* <label htmlFor="item-price">{itemName}</label> */}
       <input
         type="text"
         id="item-name"
-        className="rounded-sm px-1 text-black"
+        className="col-span-3 mr-1 rounded-sm p-1 text-black"
         defaultValue={itemName || ""}
         {...register(`itemList.${index}.itemName`, {
           required: "Name is required",
@@ -47,7 +47,7 @@ export function Item({
       <input
         type="text"
         id="item-price"
-        className="rounded-sm p-1 text-black"
+        className="col-span-2 rounded-sm p-1 text-black"
         defaultValue={0}
         {...register(`itemList.${index}.price`, {
           required: "Price is required",
@@ -61,7 +61,7 @@ export function Item({
       <input
         type="text"
         id="item-amount"
-        className="rounded-sm p-1 text-black"
+        className="col-span-2 rounded-sm p-1 text-black"
         defaultValue={1}
         {...register(`itemList.${index}.amount`, {
           required: "Amount is required",
@@ -72,15 +72,6 @@ export function Item({
           },
         })}
       />
-      <div className="flex justify-between">
-        <span> {amount > 0 ? getPricePerUnit(price, amount) : 0}</span>
-        <Button
-          text="X"
-          color="gray"
-          callback={() => removeItem(index)}
-          variant="circle"
-        />
-      </div>
     </div>
   );
 }
