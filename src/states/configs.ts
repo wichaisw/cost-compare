@@ -1,3 +1,3 @@
 import { atom } from "nanostores";
 
-export const currency = atom("THB");
+export const currency = atom("Price");

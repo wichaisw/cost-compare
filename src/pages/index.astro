@@ -2,17 +2,14 @@
 import { ModalButton } from "../components/ModalButton";
 import { ItemListForm } from "../components/ItemListForm";
 import Layout from "../layouts/Layout.astro";
-
-import { Dropdown } from "../components/Dropdown";
 ---
 
 <Layout>
   <main
     class="lg:max-w-screen mx-2 flex h-full flex-col items-center text-sm lg:min-w-[54rem] lg:text-base"
   >
-    <div class="mb-2 mr-6 mt-4 flex w-full flex-row justify-end gap-2">
-      <Dropdown client:load />
+    <div class="mt-8 flex h-full w-full justify-center">
+      <ItemListForm client:load />
     </div>
-    <ItemListForm client:load />
   </main>
 </Layout>

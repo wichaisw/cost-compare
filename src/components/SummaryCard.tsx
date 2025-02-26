@@ -109,8 +109,8 @@ export function SummaryCard() {
                       <p>It's Free!</p>
                     ) : (
                       <p>
-                        {savedCostPerUnit} {$currency} (
-                        {getPriceDifferencePercent(cheapestItem, item)} %)
+                        {savedCostPerUnit} (
+                        {getPriceDifferencePercent(cheapestItem, item)}%)
                       </p>
                     )}
                   </td>
