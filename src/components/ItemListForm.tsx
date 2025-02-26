@@ -40,13 +40,12 @@ export function ItemListForm() {
     criteriaMode: "all",
   });
 
-  const { formState, control } = formMethods;
+  const { formState, control, clearErrors } = formMethods;
 
-  const { fields, append, prepend, remove, swap, move, insert, replace } =
-    useFieldArray({
-      control,
-      name: "itemList",
-    });
+  const { fields, append, remove, replace } = useFieldArray({
+    control,
+    name: "itemList",
+  });
 
   useEffect(() => {
     initFormFromStorage();
@@ -124,6 +123,7 @@ export function ItemListForm() {
   }
 
   function clearLocalState(event: any) {
+    clearErrors();
     fields.forEach((itemField, index) => {
       formMethods.setValue(`itemList.${index}.amount`, 1);
       formMethods.setValue(`itemList.${index}.price`, 0);
