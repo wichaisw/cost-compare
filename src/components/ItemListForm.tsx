@@ -210,6 +210,7 @@ export function ItemListForm() {
               <Button
                 text="Add Item"
                 color="green"
+                style="w-full lg:w-1/4"
                 callback={() =>
                   addItem(formMethods.getValues().itemList.length + 1)
                 }

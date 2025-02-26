@@ -92,7 +92,8 @@ export function SummaryCard() {
       </div>
       <div>
         <span className="text-white">
-          Buying {cheapestItem.amount} units will save you{" "}
+          Buying {cheapestItem.itemName} {cheapestItem.amount} units will save
+          you{" "}
           {validateItemData(cheapestItem) && validateItemData(compareTarget)
             ? getTotalSavedCost(cheapestItem, compareTarget)
             : 0}
