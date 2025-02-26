@@ -39,7 +39,7 @@ export function Dropdown() {
           >
             {CURRENCIES.map((option) => {
               return (
-                <li onClick={() => chooseCurrency(option)}>
+                <li onClick={() => chooseCurrency(option)} key={option}>
                   <span className="block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                     {option}
                   </span>
