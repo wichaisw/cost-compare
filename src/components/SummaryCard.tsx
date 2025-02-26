@@ -34,36 +34,6 @@ export function SummaryCard() {
           {cheapestItem.itemName} is the Cheapest Choice!
         </span>
         <br />
-
-        <div>
-          <span>
-            Buying {cheapestItem.amount} units will save you{" "}
-            {validateItemData(cheapestItem) && validateItemData(compareTarget)
-              ? getTotalSavedCost(cheapestItem, compareTarget)
-              : 0}
-            {` ${$currency} `}
-            compared to
-          </span>
-          <p className="mx-1 inline p-1">
-            <select
-              id="compare-target"
-              className="inline rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              onChange={(event) =>
-                setCompareTarget($sortedItemList[Number(event.target.value)])
-              }
-              key={`itemList-select`}
-            >
-              {$sortedItemList.map((item, index) => {
-                if (index === 0) return null;
-                return (
-                  <option key={`${item.itemName}-${index}`} value={index}>
-                    {item.itemName}
-                  </option>
-                );
-              })}
-            </select>
-          </p>
-        </div>
       </div>
 
       <div className="my-4 flex w-full flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
@@ -119,6 +89,35 @@ export function SummaryCard() {
             })}
           </tbody>
         </table>
+      </div>
+      <div>
+        <span className="text-white">
+          Buying {cheapestItem.amount} units will save you{" "}
+          {validateItemData(cheapestItem) && validateItemData(compareTarget)
+            ? getTotalSavedCost(cheapestItem, compareTarget)
+            : 0}
+          {` `}
+          compared to
+        </span>
+        <p className="mx-1 inline p-1">
+          <select
+            id="compare-target"
+            className="inline rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            onChange={(event) =>
+              setCompareTarget($sortedItemList[Number(event.target.value)])
+            }
+            key={`itemList-select`}
+          >
+            {$sortedItemList.map((item, index) => {
+              if (index === 0) return null;
+              return (
+                <option key={`${item.itemName}-${index}`} value={index}>
+                  {item.itemName}
+                </option>
+              );
+            })}
+          </select>
+        </p>
       </div>
     </div>
   );
