@@ -228,7 +228,7 @@ export function ItemListForm() {
                     />
                     <Button
                       text="Compare"
-                      color="green"
+                      color="darkGreen"
                       type="submit"
                       style="w-1/2 lg:w-1/4"
                     />

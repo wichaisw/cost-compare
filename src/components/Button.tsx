@@ -22,6 +22,7 @@ export function Button({
     amber: "bg-amber-500 hover:bg-orange-700",
     gray: "bg-slate-500 hover:bg-slate-700",
     green: "bg-green-400 hover:bg-green-600",
+    darkGreen: "bg-green-500 hover:bg-green-700",
   };
 
   const variantClasses = {
