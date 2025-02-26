@@ -53,8 +53,8 @@ export function Item({
           required: "Price is required",
           valueAsNumber: true,
           validate: {
-            positive: (value) => value >= 0 || "Price cannot be negative",
             number: (value) => !isNaN(value) || "Price must be a number",
+            positive: (value) => value >= 0 || "Price cannot be negative",
           },
         })}
       />
@@ -67,8 +67,8 @@ export function Item({
           required: "Amount is required",
           valueAsNumber: true,
           validate: {
-            positive: (value) => value > 0 || "Amount must be greater than 0",
             number: (value) => !isNaN(value) || "Amount must be a number",
+            positive: (value) => value > 0 || "Amount must be greater than 0",
           },
         })}
       />
